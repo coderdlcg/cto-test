@@ -18,12 +18,6 @@
                     <x-nav-link :href="route('reports')" :active="request()->routeIs('reports')">
                         {{ __('Reports') }}
                     </x-nav-link>
-
-                    @auth
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    @endauth
                 </div>
             </div>
 

@@ -1,8 +1,12 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+            <x-slot name="header">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('List employees') }}
+                </h2>
+            </x-slot>
             <div class="flex flex-row justify-between mb-6">
-                <h1 class="font-semibold text-2xl">{{__("List employees")}}</h1>
                 <a href="#" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 rounded-xl">+ {{__("Import")}}</a>
             </div>
             <div class="bg-white overflow-hidden sm:rounded-lg">

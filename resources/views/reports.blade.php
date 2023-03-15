@@ -1,9 +1,11 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex flex-row justify-between mb-6">
-                <h1 class="font-semibold text-2xl">{{__("Reports by employees")}}</h1>
-            </div>
+            <x-slot name="header">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Reports by employees') }}
+                </h2>
+            </x-slot>
             <div class="bg-white overflow-hidden sm:rounded-lg">
                 <table class="min-w-max w-full table-auto rounded-lg">
                     <thead>
