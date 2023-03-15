@@ -7,7 +7,11 @@
                 </h2>
             </x-slot>
             <div class="flex flex-row justify-between mb-6">
-                <a href="#" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 rounded-xl">+ {{__("Import")}}</a>
+                <a href="#"
+                   class="py-2 px-4 bg-gray-200 hover:bg-gray-300 rounded-xl"
+                   id="import"
+                   onclick="openModal()"
+                >+ {{__("Import")}}</a>
             </div>
             <div class="bg-white overflow-hidden sm:rounded-lg">
                 <table class="min-w-max w-full table-auto rounded-lg">
@@ -48,4 +52,6 @@
             </div>
         </div>
     </div>
+
+    <x-modal-import :action="route('employees_import')"/>
 </x-app-layout>
