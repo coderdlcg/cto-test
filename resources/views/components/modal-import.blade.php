@@ -14,20 +14,9 @@
                     </svg>
                 </div>
             </div>
-            <form id="form-import" action="#" method="post">
+            <form id="form-import" action="#" method="post" enctype="multipart/form-data">
                 @csrf
                     <div class="my-5">
-                        <style>
-                            input[type=file]::file-selector-button{
-                                visibility: hidden;
-                                color: transparent;
-                            }
-
-                            input[type=file]::-webkit-file-upload-button{
-                                visibility: hidden;
-                                color: transparent;
-                            }
-                        </style>
                         <label class="block mb-2 text-md font-medium text-gray-900 dark:text-gray-300" for="file_input">Select file in csv format!</label>
                         <input name="file_csv" class="py-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="file_input" type="file">
                     </div>
