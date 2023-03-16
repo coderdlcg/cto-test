@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
+
+Route::get('/employees', [EmployeeController::class, 'index'])->name('employees');
+Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees_import');
+
+Route::get('/reports', function () {
+    return view('reports');
+})->name('reports');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
