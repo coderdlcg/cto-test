@@ -18,11 +18,11 @@
                 @csrf
                     <div class="my-5">
                         <label class="block mb-2 text-md font-medium text-gray-900 dark:text-gray-300" for="file_input">Select file in csv format!</label>
-                        <input name="file_csv" class="py-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="file_input" type="file">
+                        <input name="file_input" class="py-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="file_input" type="file">
                     </div>
                     <div class="flex justify-center pt-2">
                         <button class="focus:outline-none modal-close px-4 bg-orange-400 p-3 rounded-lg text-white hover:bg-orange-300">{{__("Cancel")}}</button>
-                        <button class="focus:outline-none px-4 bg-green-500 p-3 ml-3 rounded-lg text-white hover:bg-green-400">{{__("Import")}}</button>
+                        <button type="submit" class="focus:outline-none px-4 bg-green-500 p-3 ml-3 rounded-lg text-white hover:bg-green-400">{{__("Import")}}</button>
                     </div>
             </form>
         </div>
