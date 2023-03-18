@@ -12,7 +12,20 @@ class EmployeeController extends Controller
     {
         $employees = Employee::paginate(10);
 
-        return view('employees', compact(['employees']));
+        return view('employees.list', compact(['employees']));
+    }
+
+    public function reports(int $id)
+    {
+        $employee = Employee::findOrFail($id);
+
+        if (!$employee) {
+            return abort(404);
+        }
+
+        $workTimes = $employee->workTimesByWeekly();
+
+        return view('employees.report', compact(['employee', 'workTimes']));
     }
 
     public function import(Request $request)
