@@ -15,4 +15,9 @@ class WorkTime extends Model
         'start' => 0,
         'stop' => 1,
     ];
+
+    public function employee()
+    {
+        $this->belongsTo(Employee::class);
+    }
 }
