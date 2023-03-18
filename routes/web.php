@@ -19,12 +19,12 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/employees', [EmployeeController::class, 'index'])->name('employees');
-Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees_import');
+Route::prefix('employees')->group(function () {
+    Route::get('/', [EmployeeController::class, 'index'])->name('employees');
+    Route::get('/{id}/reports', [EmployeeController::class, 'reports'])->name('reportByEmployee');
 
-Route::get('/reports', function () {
-    return view('reports');
-})->name('reports');
+    Route::post('/import', [EmployeeController::class, 'import'])->name('employees_import');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

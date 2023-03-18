@@ -23,11 +23,8 @@
                 @endauth
 
                 <div class="flex justify-between">
-                    <a href="{{ route('employees') }}" class="w-1/2 text-center p-4 bg-gray-200 hover:bg-gray-300 font-semibold text-sm text-gray-600 hover:text-gray-900 rounded-lx">
+                    <a href="{{ route('employees') }}" class="w-full text-center p-4 bg-gray-200 hover:bg-gray-300 font-semibold text-sm text-gray-600 hover:text-gray-900 rounded-lx">
                         {{ __('Employees') }}
-                    </a>
-                    <a href="{{ route('reports') }}" class="w-1/2 text-center p-4 bg-gray-200 hover:bg-gray-300 font-semibold text-sm text-gray-600 hover:text-gray-900 rounded-lx">
-                        {{ __('Reports') }}
                     </a>
                 </div>
             </div>
