@@ -12,15 +12,14 @@
         >+ {{__("Import")}}</a>
     </div>
     @error('file_input')
-    <div class="alert alert-danger">{{ $message }}</div>
+    <div class="alert alert-danger p-2 bg-red-200 text-red-700 rounded-lg mb-2">{{ $message }}</div>
     @enderror
     <div class="bg-white overflow-hidden sm:rounded-lg">
         <table class="min-w-max w-full table-auto rounded-lg">
             <thead>
                 <tr class="rounded-t-lg bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                     <th class="rounded-tl-lg py-3 px-6 text-left">Id</th>
-                    <th class="py-3 px-6 text-left">Full name</th>
-                    <th class="rounded-tr-lg py-3 px-6 text-right">Actions</th>
+                    <th class="rounded-tr-lg py-3 px-6 text-right">Full name</th>
                 </tr>
             </thead>
             <tbody class="text-gray-600 text-sm font-light">
@@ -31,30 +30,20 @@
                                 <span class="font-medium">{{ $employee->id }}</span>
                             </div>
                         </td>
-                        <td class="py-3 px-6 text-left">
-                            <div class="flex items-center">
-                                {{ $employee->full_name }}
-                            </div>
-                        </td>
-                        <td class="py-3 px-6 text-left">
-                            <div class="flex items-center">
-
-                            </div>
+                        <td class="py-3 px-6 text-right">
+                            <a class="text-sky-500" href="{{ route('reportByEmployee', $employee->id) }}">{{ $employee->full_name }}</a>
                         </td>
                     </tr>
                 @endforeach
 
                 <tr class="rounded-t-lg bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th class="rounded-bl-lg py-3 px-6 text-left">
-
-                    </th>
-                    <th class="py-3 px-6 text-left"></th>
+                    <th class="rounded-bl-lg py-3 px-6 text-left"></th>
                     <th class="rounded-br-lg py-3 px-6 text-center"></th>
                 </tr>
             </tbody>
         </table>
-        {{ $employees->links() }}
     </div>
+    {{ $employees->links('components.paginate') }}
 
     <x-modal-import :action="route('employees_import')"/>
 </x-app-layout>
