@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WorkTimeRequest;
 use App\Http\Resources\WorkTimeResource;
+use App\Models\Employee;
 use App\Models\WorkTime;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 
 class WorkTimeController extends Controller
 {
@@ -16,20 +16,17 @@ class WorkTimeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(WorkTimeRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-           'employee_id' => ['required', 'integer', 'max_digits:12']
-        ]);
+        $employee_id = $request->validated('employee_id');
 
-        if ($validator->fails()) {
-            return response()->json(['message' => 'bad request'], Response::HTTP_BAD_REQUEST);
+        $employee = Employee::find($employee_id);
+        if (!$employee) {
+            return response()->json(['message' => 'Employee not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $validated = $validator->safe()->only(['employee_id']);
-
         $workTime = WorkTime::firstOrCreate([
-            'employee_id' => $validated['employee_id'],
+            'employee_id' => $employee_id,
             'status' => WorkTime::STATUS['start'],
         ]);
 
@@ -39,20 +36,17 @@ class WorkTimeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(WorkTimeRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'employee_id' => ['required', 'integer', 'max_digits:12']
-        ]);
+        $employee_id = $request->validated('employee_id');
 
-        if ($validator->fails()) {
-            return response()->json(['message' => 'bad request'], Response::HTTP_BAD_REQUEST);
+        $employee = Employee::find($employee_id);
+        if (!$employee) {
+            return response()->json(['message' => 'Employee not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $validated = $validator->safe()->only(['employee_id']);
-
         $workTime = WorkTime::firstWhere([
-            'employee_id' => $validated['employee_id'],
+            'employee_id' => $employee_id,
             'status' => WorkTime::STATUS['start']
         ]);
 

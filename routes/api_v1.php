@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('worktimes')->group(function () {
+Route::middleware('auth:sanctum')->prefix('worktimes')->group(function () {
     Route::post('/', [WorkTimeController::class, 'store'])->name('start');
     Route::put( '/', [WorkTimeController::class, 'update'])->name('stop');
 });
