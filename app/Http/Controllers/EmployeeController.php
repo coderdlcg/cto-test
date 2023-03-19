@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use App\Services\EmployeesImport;
 use Illuminate\Http\Request;
@@ -28,13 +29,9 @@ class EmployeeController extends Controller
         return view('employees.report', compact(['employee', 'workTimes']));
     }
 
-    public function import(Request $request)
+    public function import(EmployeeRequest $request)
     {
-        $request->validate([
-            'file_input' => 'required|mimetypes:text/plain,text/csv',
-        ]);
-
-        $file = $request->file('file_input');
+        $file = $request->validated('file_input');
 
         $isSuccess = EmployeesImport::processing($file);
 
