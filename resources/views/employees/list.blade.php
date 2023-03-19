@@ -4,6 +4,7 @@
             {{ __('List employees') }}
         </h2>
     </x-slot>
+    @auth
     <div class="flex flex-row justify-between mb-6">
         <a href="#"
            class="py-2 px-4 bg-gray-200 hover:bg-gray-300 rounded-xl"
@@ -11,6 +12,7 @@
            onclick="openModal()"
         >+ {{__("Import")}}</a>
     </div>
+    @endauth
     @error('file_input')
     <div class="alert alert-danger p-2 bg-red-200 text-red-700 rounded-lg mb-2">{{ $message }}</div>
     @enderror
