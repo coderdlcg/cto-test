@@ -1,23 +1,28 @@
 
 
- v.0.0.1 
+v.0.0.1
 
 ___
 ### Local Deploy
 
- - `git clone `
- - `composer install`
- - `cp .env.example .env`
- - Fill .env
- - `php artisan key:generate`
- - `npm install && npm run build`
- - `php artisan migrate --seed`
+- `git clone `
+- `composer install`
+- `cp .env.example .env`
+- Fill .env
+- `php artisan key:generate`
+- `npm install && npm run build`
+- `php artisan migrate --seed`
 
 ___
 #### Test user
 - email: `test@test.com`
 - password: `asdfasdf`
-- In console will be showed the Bearer token for testing API, after running the migration command.
+
+#### API
+- API Documentation route [/api/v1](http://localhost:8000/api/v1)
+- In console will be showed the Bearer token for testing API, after running the migration command. Use this is token for auth your requests in API routes. 
+- Add in Headers to your Http request next header `Authorization` with the value `Bearer YourKeyWhenWillBeGeneratedInConsole`.
+- run command for update API docs `php artisan l5-swagger:generate`
 ___
 
 
