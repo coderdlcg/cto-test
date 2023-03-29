@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#form-import input[type=file]::file-selector-button {
+    visibility: hidden;
+    color: transparent;
+}
+
+#form-import input[type=file]::-webkit-file-upload-button {
+    visibility: hidden;
+    color: transparent;
+}
