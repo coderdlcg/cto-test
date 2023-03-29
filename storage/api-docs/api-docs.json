@@ -19,130 +19,14 @@
         }
     ],
     "paths": {
-        "/worktimes": {
-            "put": {
-                "tags": [
-                    "Worktimes"
-                ],
-                "summary": "Stop worktime project",
-                "description": "Stop worktime for employee_id",
-                "operationId": "586c050c7dbf30844aebaea9a24d2a55",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "employee_id": {
-                                        "type": "integer",
-                                        "example": "12345"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer",
-                                            "example": "12"
-                                        },
-                                        "employee_id": {
-                                            "type": "integer",
-                                            "example": "12345"
-                                        },
-                                        "status": {
-                                            "type": "string",
-                                            "example": "stopped"
-                                        },
-                                        "value": {
-                                            "type": "number",
-                                            "format": "float",
-                                            "example": "1.5"
-                                        },
-                                        "started_at": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2023-01-01T00:00:00.000000Z"
-                                        },
-                                        "stopped_at": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2023-01-01T01:30:00.000000Z"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Bad Request"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Unauthenticated"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Employee not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Employee not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
+        "/worktimes/start": {
             "post": {
                 "tags": [
                     "Worktimes"
                 ],
                 "summary": "Start worktime",
                 "description": "Start worktime for employee_id",
-                "operationId": "693eead84973e6efebb784c978304857",
+                "operationId": "353b34577be4046713b94bf2b1241e51",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -217,6 +101,124 @@
                     },
                     "401": {
                         "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Employee not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Employee not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/worktimes/stop": {
+            "post": {
+                "tags": [
+                    "Worktimes"
+                ],
+                "summary": "Stop worktime",
+                "description": "Stop worktime for employee_id",
+                "operationId": "d60a9cf344bc4eafbe77d09d5d64158f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "employee_id": {
+                                        "type": "integer",
+                                        "example": "12345"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "12"
+                                        },
+                                        "employee_id": {
+                                            "type": "integer",
+                                            "example": "12345"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "stopped"
+                                        },
+                                        "value": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "1.5"
+                                        },
+                                        "started_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2023-01-01T00:00:00.000000Z"
+                                        },
+                                        "stopped_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2023-01-01T01:30:00.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bad Request"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
                         "content": {
                             "application/json": {
                                 "schema": {
