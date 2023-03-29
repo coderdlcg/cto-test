@@ -7,7 +7,7 @@ use App\Http\Requests\WorkTimeRequest;
 use App\Http\Resources\WorkTimeResource;
 use App\Models\Employee;
 use App\Models\WorkTime;
-use Carbon\Carbon;
+use App\Services\WorkTimeService;
 use Illuminate\Http\Response;
 
 class WorkTimeController extends Controller
@@ -149,12 +149,7 @@ class WorkTimeController extends Controller
             return response()->json(['message' => 'Not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $now = Carbon::now();
-        $workedInMinnutes = $now->diffInMinutes($workTime->created_at);
-
-        $workTime->status = WorkTime::STATUS['stop'];
-        $workTime->value = round($workedInMinnutes / 60, 2);
-        $workTime->save();
+        $workTime = WorkTimeService::stop($workTime);
 
         return new WorkTimeResource($workTime);
     }

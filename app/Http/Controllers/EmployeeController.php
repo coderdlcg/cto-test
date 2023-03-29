@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use App\Services\EmployeesImport;
+use App\Services\EmployeesReport;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -24,7 +25,7 @@ class EmployeeController extends Controller
             return abort(404);
         }
 
-        $workTimes = $employee->workTimesByWeekly();
+        $workTimes = EmployeesReport::workTimesByWeekly($employee);
 
         return view('employees.report', compact(['employee', 'workTimes']));
     }
