@@ -7,14 +7,14 @@ use App\Http\Requests\WorkTimeRequest;
 use App\Http\Resources\WorkTimeResource;
 use App\Models\Employee;
 use App\Models\WorkTime;
-use Carbon\Carbon;
+use App\Services\WorkTimeService;
 use Illuminate\Http\Response;
 
 class WorkTimeController extends Controller
 {
     /**
      * @OA\Post(
-     *      path="/worktimes",
+     *      path="/worktimes/start",
      *      tags={"Worktimes"},
      *      summary="Start worktime",
      *      description="Start worktime for employee_id",
@@ -63,7 +63,7 @@ class WorkTimeController extends Controller
      *      )
      * )
      */
-    public function store(WorkTimeRequest $request)
+    public function start(WorkTimeRequest $request)
     {
         $employee_id = $request->validated('employee_id');
 
@@ -81,10 +81,10 @@ class WorkTimeController extends Controller
     }
 
     /**
-     * @OA\Put(
-     *      path="/worktimes",
+     * @OA\Post(
+     *      path="/worktimes/stop",
      *      tags={"Worktimes"},
-     *      summary="Stop worktime project",
+     *      summary="Stop worktime",
      *      description="Stop worktime for employee_id",
      *      @OA\RequestBody(
      *          required=true,
@@ -131,7 +131,7 @@ class WorkTimeController extends Controller
      *      )
      * )
      */
-    public function update(WorkTimeRequest $request)
+    public function stop(WorkTimeRequest $request)
     {
         $employee_id = $request->validated('employee_id');
 
@@ -149,12 +149,7 @@ class WorkTimeController extends Controller
             return response()->json(['message' => 'Not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $now = Carbon::now();
-        $workedInMinnutes = $now->diffInMinutes($workTime->created_at);
-
-        $workTime->status = WorkTime::STATUS['stop'];
-        $workTime->value = round($workedInMinnutes / 60, 2);
-        $workTime->save();
+        $workTime = WorkTimeService::stop($workTime);
 
         return new WorkTimeResource($workTime);
     }
