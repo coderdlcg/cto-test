@@ -18,7 +18,7 @@ class WorkTimeResource extends JsonResource
         return [
             'id' => $this->id,
             'employee_id' => $this->employee_id,
-            'status' => $this->status === WorkTime::STATUS['start'] ? 'started': 'stopped',
+            'status' => $this->status === WorkTime::STATUS_STARTED ? 'started': 'stopped',
             'value' => $this->value,
             'started_at' => $this->created_at,
             'stopped_at' => $this->updated_at,

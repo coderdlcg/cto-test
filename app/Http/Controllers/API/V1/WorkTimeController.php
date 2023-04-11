@@ -12,6 +12,13 @@ use Illuminate\Http\Response;
 
 class WorkTimeController extends Controller
 {
+    private WorkTimeService $service;
+
+    public function __construct(WorkTimeService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @OA\Post(
      *      path="/worktimes/start",
@@ -74,7 +81,7 @@ class WorkTimeController extends Controller
 
         $workTime = WorkTime::firstOrCreate([
             'employee_id' => $employee_id,
-            'status' => WorkTime::STATUS['start'],
+            'status' => WorkTime::STATUS_STARTED,
         ]);
 
         return new WorkTimeResource($workTime);
@@ -142,14 +149,14 @@ class WorkTimeController extends Controller
 
         $workTime = WorkTime::firstWhere([
             'employee_id' => $employee_id,
-            'status' => WorkTime::STATUS['start']
+            'status' => WorkTime::STATUS_STARTED
         ]);
 
         if (!$workTime) {
             return response()->json(['message' => 'Not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $workTime = WorkTimeService::stop($workTime);
+        $workTime = $this->service->stop($workTime);
 
         return new WorkTimeResource($workTime);
     }

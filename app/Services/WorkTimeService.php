@@ -7,17 +7,20 @@ use Carbon\Carbon;
 
 class WorkTimeService
 {
-
-    static public function stop(WorkTime $workTime): object
+    public function stop(WorkTime $workTime): object
     {
-        $now = Carbon::now();
-        $workedInMinnutes = $now->diffInMinutes($workTime->created_at);
-
-        $workTime->status = WorkTime::STATUS['stop'];
-        $workTime->value = round($workedInMinnutes / 60, 2);
+        $workTime->status = WorkTime::STATUS_STOPPED;
+        $workTime->value  = $this->calcWorkTimeValue($workTime->created_at);
         $workTime->save();
 
         return $workTime;
     }
 
+    public function calcWorkTimeValue($workTimeStarted): float
+    {
+        $now = Carbon::now();
+        $workedInMinutes = $now->diffInMinutes($workTimeStarted);
+
+        return round($workedInMinutes / 60, 2);
+    }
 }

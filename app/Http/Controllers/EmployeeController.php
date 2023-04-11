@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+    protected EmployeesReport $report;
+    protected EmployeesImport $import;
+
+    public function __construct(EmployeesReport $report, EmployeesImport $import)
+    {
+        $this->report = $report;
+        $this->import = $import;
+    }
+
     public function index()
     {
         $employees = Employee::paginate(10);
@@ -25,7 +34,7 @@ class EmployeeController extends Controller
             return abort(404);
         }
 
-        $workTimes = EmployeesReport::workTimesByWeekly($employee);
+        $workTimes = $this->report->workTimesByWeekly($employee);
 
         return view('employees.report', compact(['employee', 'workTimes']));
     }
@@ -34,7 +43,7 @@ class EmployeeController extends Controller
     {
         $file = $request->validated('file_input');
 
-        $isSuccess = EmployeesImport::processing($file);
+        $isSuccess = $this->import->processing($file);
 
         if ($isSuccess) {
             return redirect()->back()->with('success', 'Success import!');
