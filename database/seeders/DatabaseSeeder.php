@@ -39,32 +39,32 @@ class DatabaseSeeder extends Seeder
             $employee = \App\Models\Employee::create([
                 'full_name' => fake()->name(),
             ]);
+
             $this->generateWorkTimes($employee);
         }
     }
 
     public function generateWorkTimes($employee)
     {
-        $random_float = function ($min,$max) {
+        $random_float = function ($min, $max) {
             return round($min + lcg_value() * (abs($max - $min)), 2);
         };
 
         $date = \Carbon\Carbon::now();
         $date->subDay();
+
         for ($i = 30; $i > 0; $i--) {
             $workTime = \App\Models\WorkTime::create([
                 'employee_id' => $employee->id,
-                'status' => \App\Models\WorkTime::STATUS['stop'],
+                'status' => \App\Models\WorkTime::STATUS_STOPPED,
             ]);
 
-            $workTime->value = $random_float(1,8);
+            $workTime->value = $random_float(1, 8);
             $workTime->created_at = $date;
             $workTime->updated_at = $date;
             $workTime->save();
 
             $date->subDay();
         }
-
-        $random_float(1,8);
     }
 }

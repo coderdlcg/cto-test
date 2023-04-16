@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Exceptions\EmployeeNotFoundException;
+use App\Exceptions\WorkTimeNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkTimeRequest;
 use App\Http\Resources\WorkTimeResource;
@@ -12,6 +14,13 @@ use Illuminate\Http\Response;
 
 class WorkTimeController extends Controller
 {
+    private WorkTimeService $service;
+
+    public function __construct(WorkTimeService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @OA\Post(
      *      path="/worktimes/start",
@@ -65,17 +74,13 @@ class WorkTimeController extends Controller
      */
     public function start(WorkTimeRequest $request)
     {
-        $employee_id = $request->validated('employee_id');
+        $employee_id = $request->getEmployeeId();
 
-        $employee = Employee::find($employee_id);
-        if (!$employee) {
-            return response()->json(['message' => 'Employee not found'], Response::HTTP_NOT_FOUND);
+        try {
+            $workTime = $this->service->start($employee_id);
+        } catch (EmployeeNotFoundException | WorkTimeNotFoundException $exception) {
+            return response()->json(['message' => $exception->getMessage()], Response::HTTP_NOT_FOUND);
         }
-
-        $workTime = WorkTime::firstOrCreate([
-            'employee_id' => $employee_id,
-            'status' => WorkTime::STATUS['start'],
-        ]);
 
         return new WorkTimeResource($workTime);
     }
@@ -133,23 +138,13 @@ class WorkTimeController extends Controller
      */
     public function stop(WorkTimeRequest $request)
     {
-        $employee_id = $request->validated('employee_id');
+        $employee_id = $request->getEmployeeId();
 
-        $employee = Employee::find($employee_id);
-        if (!$employee) {
-            return response()->json(['message' => 'Employee not found'], Response::HTTP_NOT_FOUND);
+        try {
+            $workTime = $this->service->stop($employee_id);
+        } catch (EmployeeNotFoundException | WorkTimeNotFoundException $exception) {
+            return response()->json(['message' => $exception->getMessage()], Response::HTTP_NOT_FOUND);
         }
-
-        $workTime = WorkTime::firstWhere([
-            'employee_id' => $employee_id,
-            'status' => WorkTime::STATUS['start']
-        ]);
-
-        if (!$workTime) {
-            return response()->json(['message' => 'Not found'], Response::HTTP_NOT_FOUND);
-        }
-
-        $workTime = WorkTimeService::stop($workTime);
 
         return new WorkTimeResource($workTime);
     }

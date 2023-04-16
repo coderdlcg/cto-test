@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv;
 class EmployeesImport
 {
 
-    static public function processing($file)
+    public function processing($file)
     {
         try {
             $reader = new Csv();

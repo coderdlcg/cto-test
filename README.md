@@ -1,17 +1,20 @@
 
 
-v.0.0.2
+v.0.0.3
 
 ___
-### Local Deploy
+### Pre - Install
+- Clone `git clone https://github.com/coderdlcg/cto-test.git`
+- Run command on Windows OS `cp .env.example .env` or
+- Run command on Linux OS `make env`
+- Fill file `.env`
 
-- `git clone `
-- `composer install`
-- `cp .env.example .env`
-- Fill .env
-- `php artisan key:generate`
-- `npm install && npm run build`
-- `php artisan migrate --seed`
+### Install on Linux
+- Run `make init`
+
+### Install on Windows
+- Run `composer install && npm install && npm run build`
+- Run `php artisan key:generate && php artisan migrate --seed`
 
 ___
 #### Test user
@@ -20,7 +23,7 @@ ___
 
 #### API
 - API Documentation route [/api/v1](http://localhost:8000/api/v1)
-- In console will be showed the Bearer token for testing API, after running the migration command. Use this is token for auth your requests in API routes. 
+- In console will be showed the Bearer token for testing API, after running the migration command. Use this is token for auth your requests in API routes.
 - Add in Headers to your Http request next header `Authorization` with the value `Bearer YourKeyWhenWillBeGeneratedInConsole`.
 - run command for update API docs `php artisan l5-swagger:generate`
 ___
