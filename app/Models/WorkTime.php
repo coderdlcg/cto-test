@@ -19,4 +19,9 @@ class WorkTime extends Model
     {
         $this->belongsTo(Employee::class);
     }
+
+    public function isStarted(): bool
+    {
+        return $this->status === self::STATUS_STARTED;
+    }
 }

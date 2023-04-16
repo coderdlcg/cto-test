@@ -15,10 +15,13 @@ class WorkTimeResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        /**
+         * @var $this WorkTime
+         */
         return [
             'id' => $this->id,
             'employee_id' => $this->employee_id,
-            'status' => $this->status === WorkTime::STATUS_STARTED ? 'started': 'stopped',
+            'status' => $this->isStarted() ? 'started': 'stopped',
             'value' => $this->value,
             'started_at' => $this->created_at,
             'stopped_at' => $this->updated_at,
