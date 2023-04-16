@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 class EmployeesReport
 {
 
-    static public function workTimesByWeekly(Employee $employee)
+    public function workTimesByWeekly(Employee $employee)
     {
         $sumWorkTimeValue = function ($items) {
             $sum = 0;
@@ -26,7 +26,7 @@ class EmployeesReport
         };
 
         return $employee->workTimes()->where('employee_id', $employee->id)
-            ->where('status', WorkTime::STATUS['stop'])
+            ->where('status', WorkTime::STATUS_STOPPED)
             ->where('created_at', '>=', Carbon::now()->subMonth())
             ->orderBy('created_at', 'desc')
             ->get()

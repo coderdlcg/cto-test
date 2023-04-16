@@ -11,13 +11,17 @@ class WorkTime extends Model
 
     protected $fillable = ['employee_id', 'status', 'value'];
 
-    public const STATUS = [
-        'start' => 0,
-        'stop' => 1,
-    ];
+    public const STATUS_STARTED = 0;
+    public const STATUS_STOPPED = 1;
+
 
     public function employee()
     {
         $this->belongsTo(Employee::class);
+    }
+
+    public function isStarted(): bool
+    {
+        return $this->status === self::STATUS_STARTED;
     }
 }

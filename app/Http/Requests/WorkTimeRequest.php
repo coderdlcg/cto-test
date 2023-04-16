@@ -17,4 +17,9 @@ class WorkTimeRequest extends FormRequest
             'employee_id' => ['required', 'integer', 'max_digits:12']
         ];
     }
+
+    public function getEmployeeId(): int
+    {
+        return $this->validated('employee_id');
+    }
 }
